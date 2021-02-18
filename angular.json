@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "Angular-Cricket-App"
+  "defaultProject": "Angular-Cricket-App",
+  "cli": {
+    "analytics": "11847aa5-bfeb-455e-ad7d-865d8e3ec8f8"
+  }
 }

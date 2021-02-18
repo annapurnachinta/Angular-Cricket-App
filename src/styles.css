@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+    box-sizing: border-box;
+}
+.wrapper{
+    width:85%;
+    margin:auto
+}
+#search-input {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 30px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+
+#tbl-container {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 18px;
+}
+
+#tbl-container th, #tbl-container td {
+    text-align: left;
+    padding: 12px;
+}
+
+#tbl-container tr {
+    border-bottom: 1px solid #ddd;
+}
+
+#tbl-container tr.header, #tbl-container tr:hover {
+    background-color: #f1f1f1;
+}

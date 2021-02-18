@@ -1,0 +1,35 @@
+<div class="wrapper">
+
+    <app-search-filter (onSearch)="handleSearch($event)"></app-search-filter>
+
+    <table id="tbl-container">
+        <tr class="header">
+            <th>Sr No</th>
+            <th>Winner team </th>
+            <th>Date &nbsp;<i class="fas fa-sort-alpha-down" (click)="handleSort(datas)" style="font-weight: 500"></i></th>
+            <th>Type</th>
+            <th>Team1</th>
+            <th>Team2</th>
+        </tr>
+        <!-- <tr *ngFor="let data of datas|filter:winner_team;let i=index;"> -->
+            <tr *ngFor="let data of datas;let i=index;">
+            <td>{{ i+1 }}</td>
+            <td>{{ data.winner_team}}</td>
+            <td>{{ data.date.slice(0,10) | date: 'dd-MM-yyyy' }}</td>
+            <td>{{ data.type }}</td>
+            <td>{{ data.team_1 }}</td>
+            <td>{{ data.team_2 }}</td>
+        </tr>
+    </table>
+</div>
+
+<!-- date: "2021-01-21T00:00:00.000Z"
+dateTimeGMT: "2021-01-21T02:30:00.000Z"
+matchStarted: true
+squad: false
+team-1: "Northern Districts Women"
+team-2: "Canterbury Women"
+toss_winner_team: "Canterbury Women"
+type: "Twenty20"
+unique_id: 1234048
+winner_team: "Canterbury Women" -->
