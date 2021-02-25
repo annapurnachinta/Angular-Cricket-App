@@ -9,7 +9,7 @@ import { CricbzzApi } from '../cricbzz-api.model';
 })
 export class MainPageComponent implements OnInit {
   datas: any | CricbzzApi[]= new Array<CricbzzApi>()
-  public sortByDate = true;
+  sort: any | { };
   public transactionsLog:any;
 
   constructor(private http: HttpClient) { }
@@ -18,10 +18,10 @@ export class MainPageComponent implements OnInit {
     this.http.get('https://cricapi.com/api/matches?apikey=Gr7yeQlLENOWzEooZkecPFAllsE3')
       .subscribe((data:any) => {
         this.datas = data.matches.map((item:any) => {
-              let keys = Object.keys(item)
-              let newItem = {...item, team_1:item[keys[3]],team_2:item[keys[4]]}
-              return newItem
-            })
+          let keys = Object.keys(item)
+          let newItem = {...item, team_1:item[keys[3]],team_2:item[keys[4]]}
+          return newItem
+        })
       })
   }
 
@@ -41,14 +41,43 @@ export class MainPageComponent implements OnInit {
     }
   }
 
-  handleSort(datas:any){
-    this.sortByDate = !this.sortByDate;
-    this.datas = datas.sort((logA: CricbzzApi| any, logB: CricbzzApi| any) => {      
-      if (this.sortByDate) {
-        return (new Date(logA.date).getTime() > new Date(logB.date).getTime() ? 1 : -1 );
-      } else {
-        return (new Date(logA.date).getTime() < new Date(logB.date).getTime() ? 1 : -1 );
+  handleSort(ColumnName:any, data:any){
+    if(this.sort?.key === ColumnName){
+      let OrderBy = this.sort.value === 1 ? -1 : 1
+      this.sort.value = OrderBy
+
+      if(this.sort.key === 'winner_team'){
+        this.datas = data.sort((logA: CricbzzApi| any, logB: CricbzzApi| any) => {
+          if(logA.winner_team < logB.winner_team){
+            return -1 * OrderBy;
+          }else if(logA.winner_team > logB.winner_team){
+            return 1 * OrderBy;
+          }else{
+            return 0;
+          } 
+        })
+      }else if(this.sort.key === 'date'){
+        this.datas = data.sort((logA: CricbzzApi| any, logB: CricbzzApi| any) => {
+          if(new Date(logA.date).getTime() < new Date(logB.date).getTime()){
+            return -1 * OrderBy;
+          }else if(new Date(logA.date).getTime() > new Date(logB.date).getTime()){
+            return 1 * OrderBy;
+          }else{
+            return 0;
+          }           
+        })
       }
-    });
+    }else{
+      this.sort = {key : ColumnName, value: 1}
+      if(ColumnName === 'winner_team'){
+        this.datas = data.sort((logA: CricbzzApi| any, logB: CricbzzApi| any) => {
+          if(logA.winner_team < logB.winner_team){
+            return -1;
+          }else{
+            return 0;
+          }           
+        })
+      }
+    }
   }
 }
