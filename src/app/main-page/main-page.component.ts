@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { CricbzzApi } from '../cricbzz-api.model';
+import { template } from 'underscore';
 
 @Component({
   selector: 'app-main-page',
@@ -10,8 +11,11 @@ import { CricbzzApi } from '../cricbzz-api.model';
 export class MainPageComponent implements OnInit {
   datas: any | CricbzzApi[]= new Array<CricbzzApi>()
   sort: any | { };
+  startIndex = 0;
+  endIndex =10;
+  paginationArray: any | []
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,) { }
 
   ngOnInit() {
     this.http.get('https://cricapi.com/api/matches?apikey=Gr7yeQlLENOWzEooZkecPFAllsE3')
@@ -22,6 +26,24 @@ export class MainPageComponent implements OnInit {
           return newItem
         })
       })
+  }
+
+  getArrayFromNumber(length, types){
+    let len = new Array(Math.ceil(length / 41))
+    return len;
+  }
+
+  updateIndex(pageNumber){
+    this.startIndex = pageNumber * 10;
+    this.endIndex = this.startIndex + 10
+  }
+
+  previousNext(indexs, types){
+    if(types == 'previous'){
+      // this.getArrayFromNumber(this.datas.length, )
+    }else{
+      console.log(types,'next')
+    }
   }
 
   handleSearch(winner_team:any){

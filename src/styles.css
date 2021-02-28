@@ -41,8 +41,8 @@
 }
 
 .pagination {
-    padding-top: 10px;
-    display: inline-block;
+    padding: 10px;
+    margin-bottom: 15px;
 }
   
 .pagination a {
@@ -64,3 +64,6 @@
 .pagination a:hover:not(.active) {
     background-color: #ddd;
 }
+
+ul { list-style-type: none;
+ }

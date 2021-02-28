@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     MainPageComponent,
-    SearchFilterComponent
+    SearchFilterComponent,
   ],
   imports: [
     BrowserModule,

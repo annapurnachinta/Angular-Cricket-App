@@ -2,17 +2,20 @@
 
     <app-search-filter (onSearch)="handleSearch($event)"></app-search-filter>
 
-    <table id="tbl-container">
+    <table data-page-length="25" id="tbl-container" datatable>
         <tr class="header">
             <th>Sr No</th>
-            <th>Winner team &nbsp;<i class="fas fa-sort-alpha-down" (click)="handleSort('winner_team', datas)" style="font-weight: 500"></i></th>
-            <th>Date &nbsp;<i class="fas fa-sort-alpha-down" (click)="handleSort('date', datas)" style="font-weight: 500"></i></th>
-            <th>Type &nbsp;<i class="fas fa-sort-alpha-down" (click)="handleSort('type', datas)" style="font-weight: 500"></i></th>
+            <th>Winner team &nbsp;<i class="fas fa-sort-alpha-down" (click)="handleSort('winner_team', datas)"
+                    style="font-weight: 500"></i></th>
+            <th>Date &nbsp;<i class="fas fa-sort-alpha-down" (click)="handleSort('date', datas)"
+                    style="font-weight: 500"></i></th>
+            <th>Type &nbsp;<i class="fas fa-sort-alpha-down" (click)="handleSort('type', datas)"
+                    style="font-weight: 500"></i></th>
             <th>Team1</th>
             <th>Team2</th>
         </tr>
-            <tr *ngFor="let data of datas.slice(0, 10);let i=index;">
-            <td>{{ i+1 }}</td>
+        <tr *ngFor="let data of datas | slice:startIndex:endIndex;let i=index;">
+            <td>{{ i+1+startIndex }}</td>
             <td>{{ data.winner_team}}</td>
             <td>{{ data.date.slice(0,10) | date: 'dd-MM-yyyy' }}</td>
             <td>{{ data.type }}</td>
@@ -23,17 +26,19 @@
 
     <div class="center">
         <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a href="#" class="active">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">&raquo;</a>
-          </div>
+            <ul>
+                <li>
+                    <a (click)="previousNext(startIndex, 'previous')">&laquo;</a>
+                </li>
+                <li *ngFor="let i of getArrayFromNumber(datas.length,'aa'); let in=index">
+                    <a (click)="updateIndex(in)" [ngClass]="{'active': in * 10 === startIndex}">{{in+1}}</a>
+                </li>
+                <li>
+                    <a (click)="previousNext(startIndex, 'next')">&raquo;</a>
+                </li>
+            </ul>
+        </div>
     </div>
-
 </div>
 
 <!-- date: "2021-01-21T00:00:00.000Z"
